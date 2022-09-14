@@ -18,7 +18,7 @@ Data are from a variety of publically available sources:
 - Percent of Families with Children below Poverty Level: 2019 1-year American Community Survey, US Census
 - Number of Violent Crimes: Chicago Data Portal (2021 crimes only).
 - Community Disconnection Rate: Percent of 16-24 year old youth that are not in school or working. 2019 1-year American Community Survey, US Census/IPUMS.
-- High Graduation Rate: HS Graduation Rate from Chicago Public Schools in Spring 2020. [To&Through]("https://toandthrough.uchicago.edu/tool/cps/").
+- High Graduation Rate: HS Graduation Rate from Chicago Public Schools in Spring 2020. [To&Through](https://toandthrough.uchicago.edu/tool/cps/).
 - COVID Mortality Rate: Chicago Data Portal.
 - Percent of Households without Internet Access: 2019 1-year American Community Survey, US Census.
 - Percent of People without Health Insurance: 2019 1-year American Community Survey, US Census.
