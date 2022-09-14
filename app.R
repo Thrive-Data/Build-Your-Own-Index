@@ -4,7 +4,7 @@
 #######################
 
 ### Set wd
-#setwd("C:/Users/David/Documents/Thrive Work Stuff/BYMOC Data/byo_index_v3")
+#setwd("~path/to/files~")
 
 ### Libraries
 library(shiny)
@@ -30,63 +30,7 @@ library(DT)
 community<-readOGR(dsn=".",layer="community")
 
 ### Load Data
-mbk_community_ranking<-fread("mbk_community_ranking.csv")
-mbk_community_ranking2<-fread("mbk_community_ranking2.csv")
-
-mbk_rankings_blackhisp<-fread("mbk_rankings_blackhisp.csv")
-
-### Load Edu outcomes and partner directory
-cps_data<-fread("data.csv")
-partner_info<-fread("partner_info3.csv")
-
-### Merge
-#mbk_ranking<-full_join(mbk_community_ranking,mbk_community_ranking2)
-
-mbk_ranking<-mbk_community_ranking %>%
-    inner_join(mbk_rankings_blackhisp)
-
-#########################
-### Clean Data
-#########################
-
-mbk_community_ranking<-mbk_ranking %>%
-    mutate(total=pr_black_hisp +
-               pr_poverty+pr_crime+pr_comm_disconnection+
-               pr_no_internet+pr_covid_death_rate+
-               pr_no_HI+pr_poor_mh+pr_life_expectency,
-           overall_ranking=percent_rank(total),
-           overall_ranking=round(overall_ranking,2)
-    ) 
-
-#########################
-### Clean Data
-#########################
-
-### Merge in CPS Data
-mbk_community_ranking<-mbk_community_ranking %>%
-    left_join({
-        cps_data %>%
-            dplyr::select(community,hs_graduation_spr2020) %>%
-            filter(community != "CPS") %>%
-            mutate(pr_low_hs_grad=1-percent_rank(hs_graduation_spr2020))
-            
-    })
-
-### Merge in Partner Data
-mbk_community_ranking<-mbk_community_ranking %>%
-    left_join({
-        partner_info %>%
-            dplyr::select("Organization / Affiliation","Community") %>%
-            separate(col = Community,sep = ", ",into = paste("Community",c(1:25),sep = "")) %>%
-            melt(id.vars="Organization / Affiliation") %>%
-            filter(!is.na(value)) %>%
-            mutate(value=toupper(value)) %>%
-            
-            group_by(community=value) %>%
-            summarise(partner_count=n()) 
-    }) %>%
-    mutate(partner_count=ifelse(is.na(partner_count),0,partner_count)) %>%
-    mutate(pr_partner_count=percent_rank(partner_count))
+data<-fread("data.csv")
 
 #########################
 ### Preliminaries
@@ -283,7 +227,7 @@ server <- function(input, output) {
             input$life_expectency
         }
         ,{
-            mbk_community_ranking %>%
+            data %>%
                 mutate(
                     overall_ranking2 = percent_rank(pr_poverty*input$poverty + pr_crime*input$crime + pr_black_hisp*input$black_hisp + #pr_no_bachelors*input$education + 
                                                         pr_comm_disconnection*input$disconnection + #pr_hs_disconnection*input$hs_disconnection + 
