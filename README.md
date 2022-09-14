@@ -3,7 +3,7 @@
 ## What this code does?
 This repository is for building a customizable index using publicly available data.
 
-Code will be able to create an app like the one [here]("https://dkro23.shinyapps.io/byo_index_v3/").
+Code will be able to create an app like the one [here](https://dkro23.shinyapps.io/byo_index_v3/).
 
 ## Why is this useful?
 Organizations have to consider several factors when they decide to allocate resources given that they have limited time and resources. But what factors should an organization consider? There are several buckets of factors that typically come to mind: organizational mission (who do we say we serve), specifications of the grant (e.g. limiting the effect of learning loss in COVID impacted communities), and other factors we believe influence outcomes  (e.g. community resources). This tool will help organizations consider the complex combination of factors by allowing them to pick and choose the indicators they want to include in an index. It also allows users to add weights to the indicators because some indicators are more important to consider than others depending on the organization, grant, and community context.
